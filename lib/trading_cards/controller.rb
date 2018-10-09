@@ -1,7 +1,6 @@
 class Controller
 
 def call
-  binding.pry
   list_editions
   editions_menu
   music_the_gathering_menu || craic_show_menu || chaste_treasure_menu || plunder_doggs_menu || lady_victoria_menu
@@ -53,7 +52,7 @@ def editions_menu
   when "list"
     list_editions
   else
-    puts "pick 1-5 or 'list' please."
+    editions_menu
   end
 end
 
@@ -126,7 +125,7 @@ end
 
    def plunder_doggs_menu
      input = nil
-     while input != 'exit'
+     while input != "exit"
          puts "Please enter the number of the character you'd like to know more about, 'list' to see the editions again, or 'exit':"
        input = gets.strip.downcase
        case input
