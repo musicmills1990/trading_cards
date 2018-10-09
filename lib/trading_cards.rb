@@ -1,5 +1,2 @@
-require "trading_cards/version"
-
-module TradingCards
-  # Your code goes here...
-end
+require_relative "./trading_cards/version"
+require_relative "./trading_cards/controller"
