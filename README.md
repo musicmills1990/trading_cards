@@ -1,8 +1,7 @@
 # TradingCards
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/trading_cards`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+My project is called The Trading Card Shop, where I am pulling information off of my music act's merchandise website.
+The shop has many trading card "editions", each edition has 1 to 4 character cards, and each character card has a description.
 
 ## Installation
 
