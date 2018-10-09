@@ -1,6 +1,7 @@
 class Controller
 
 def call
+  binding.pry
   list_editions
   editions_menu
   music_the_gathering_menu || craic_show_menu || chaste_treasure_menu || plunder_doggs_menu || lady_victoria_menu

@@ -1,3 +1,4 @@
 #!/usr/bin/env ruby
 require './lib/trading_cards'
 Controller.new.call
+binding.pry
