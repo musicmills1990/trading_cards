@@ -25,9 +25,9 @@ class Edition
     editions = []
      editions << self.scrape_mtg
      editions << self.scrape_craic
-#    editions << self.scrape_chaste
-#    editions << self.scrape_plunder
-#    editions << self.scrape_lady_v
+     editions << self.scrape_chaste
+     editions << self.scrape_plunder
+     editions << self.scrape_lady_v
     editions
     end
 
@@ -60,11 +60,10 @@ class Edition
       chaste_doc = Nokogiri::HTML(open("https://musicthegathering.com/chaste-treasure-edition-cards"))
 
       edition = self.new
-        chaste_doc.search("div.sqs-block.html-block.sqs-block-html").each do |element|
-          edition.name = element.search("h2").text.strip.gsub("BuY All Three!", "")
-          edition.characters = element.search("h3").text.strip
-          edition.description = element.css("div.sqs-block-content p").text
-        end
+        edition.name = chaste_doc.search("div.sqs-block.html-block.sqs-block-html h2").text.strip.gsub("Buy All Four!", "")
+        edition.characters = chaste_doc.search("div.sqs-block.html-block.sqs-block-html h3").text.strip
+        edition.description = chaste_doc.search("div.sqs-block.html-block.sqs-block-html.sqs-block-content p").text.strip
+
       edition
     end
 
@@ -72,23 +71,21 @@ class Edition
       plunder_doc = Nokogiri::HTML(open("https://musicthegathering.com/the-plunder-doggs-edition-cards"))
 
       edition = self.new
-        plunder_doc.search("div.sqs-block.html-block.sqs-block-html").each do |element|
-          edition.name = element.search("h2").text.strip.gsub("BuY All Three!", "")
-          edition.characters = element.search("h3").text.strip
-          edition.description = element.css("div.sqs-block-content p").text
-        end
+        edition.name = plunder_doc.search("div.sqs-block.html-block.sqs-block-html h2").text.strip.gsub("Buy All Four!", "")
+        edition.characters = plunder_doc.search("div.sqs-block.html-block.sqs-block-html h3").text.strip
+        edition.description = plunder_doc.search("div.sqs-block.html-block.sqs-block-html.sqs-block-content p").text.strip
+
       edition
     end
 
     def self.scrape_lady_v
-      lady_v = Nokogiri::HTML(open("https://musicthegathering.com/the-lady-victoria-card"))
+      lady_doc = Nokogiri::HTML(open("https://musicthegathering.com/the-lady-victoria-card"))
 
       edition = self.new
-        lady_v.search("div.sqs-block.html-block.sqs-block-html").each do |element|
-          edition.name = element.search("h2").text.strip.gsub("BuY All Three!", "")
-          edition.characters = element.search("h3").text.strip
-          edition.description = element.css("div.sqs-block-content p").text
-        end
+        edition.name = lady_doc.search("div.sqs-block.html-block.sqs-block-html h2").text.strip.gsub("Buy All Four!", "")
+        edition.characters = lady_doc.search("div.sqs-block.html-block.sqs-block-html h3").text.strip
+        edition.description = lady_doc.search("div.sqs-block.html-block.sqs-block-html.sqs-block-content p").text.strip
+
       edition
     end
 
