@@ -7,38 +7,79 @@
 class EditionScraper
 attr_accessor :edition, :doc
 
-  def initialize
-    @edition = Edition.new
+    def initialize
+      @edition = Edition.new
+      @doc = Nokogiri::HTML(open("https://musicthegathering.com"))
+    end
+
+    def scrape
+      scrape_editions
+      @edition
+    end
+
+    def scrape_editions
+      @doc = Nokogiri::HTML(open("https://musicthegathering.com"))
+      mtg = @doc.search("div#block-yui_3_17_2_1_1534896694126_49243.sqs-block.html-block.sqs-block-html").text.strip
+      craic = @doc.search("div#block-yui_3_17_2_1_1534896694126_56732.sqs-block.html-block.sqs-block-html").text.strip
+      chaste = @doc.search("div#block-yui_3_17_2_1_1534896694126_62410.sqs-block.html-block.sqs-block-html").text.strip.gsub("NEW! ", "")
+      plunder = @doc.search("div#block-yui_3_17_2_1_1534943478376_19237.sqs-block.html-block.sqs-block-html").text.strip.gsub("NEW! ", "")
+      lady_v = @doc.search("div#block-yui_3_17_2_1_1534943478376_60459.sqs-block.html-block.sqs-block-html").text.strip.gsub("NEW! ", "")
+      editions = [mtg, craic, chaste, plunder, lady_v]
+      editions.each_with_index do |edition, i|
+        puts "#{i + 1}. #{edition}"
+      end
+    end
+  end
     @doc = Nokogiri::HTML(open("https://musicthegathering.com"))
+    editions = @doc.search("div.sqs-block.html-block.sqs-block-html").collect do |title_element|
+      title_element.css("div.sqs-block-content h1")
+    end
+
+      #if I iterate across the above "editions" local variable, maybe, just maybe, I can assign instantiations of the Editions class to those iterations.
+      #and then use that to communicate with my controller class. More tomorrow .
+
+
+  #=> couple problems:
+    #1. This method theoretically prints out the editions, but it doesn't save each of them as INSTANCES of an edition
+    #2. I'm not able to call this method #scrape_editions on the controller and I'm not sure why
+    #2a. That probably won't matter though when I have it saving those as instances because then I will use the editions class
+    #2a. so the scraper isn't talking directly to the controller, which feels like a bad idea
+
+  class CharacterScraper
+
+    def mtg_scraper
+      mtg_doc = Nokogiri::HTML(open("https://musicthegathering.com/music-the-gathering-cards"))
+      mtg_doc.search("div.sqs-block.html-block.sqs-block-html").each do |element|
+      mtg_title = element.search("h2").text.strip.gsub("BuY All Three!", "")
+      mtg_names = element.css("div.sqs-block-content").text.split(" ")
+      puts mtg_title
+      puts mtg_names.is_a?(Array)
+    end
   end
 
-  def scrape
-    scrape_details
-    scrape_characters
-    @edition
-  end
-
-  def scrape_details
-    @edition.name = @doc.search("whatever.I'm.scraping")
-    #want it to scrape for information about the edition, which should only be name and URL...
-  end
-
-  def scrape_characters
-    @doc.search("whatever.I'm.scraping").each do |character|
-    #instantiate the character
-    a = Character.new
-    #scrape the data
-    a.name = character.search("scraping for the name").text.strip
-    a.edition = character.search("scraping for the edition?").text.strip
-    a.description = character.search("scraping for the description.").text.strip
-    a.url = character.serach("scraping for the URL").attr("href").strip
-    @edition.add_character(a)
 
 
-    #add the character to the edition
-  end
+    # def toplevel_scraper
+      # doc = Nokogiri...
+      # list_doc = doc.css("card-selector")
+      # iterate over list_doc (e.g. list_doc.each do |element|)
+
+    # end
 
 
+    def scrape_characters
+      @doc.search("whatever.I'm.scraping").each do |character|
+      #instantiate the character
+      a = Character.new
+      #scrape the data
+      a.name = character.search("scraping for the name").text.strip
+      a.edition = character.search("scraping for the edition?").text.strip
+      a.description = character.search("scraping for the description.").text.strip
+      a.url = character.serach("scraping for the URL").attr("href").strip
+      @edition.add_character(a)
+      end
+      #add the character to the edition
+    end
 end
 
 
@@ -104,5 +145,21 @@ end
 #puts ""
 #end
 
+#mtg_doc = Nokogiri::HTML(open("https://musicthegathering.com/music-the-gathering-cards"))
 
+#MTG descriptions
+#mtg_each = mtg_doc.search("div.sqs-block.html-block.sqs-block-html").each do |element|
+#mtg_title = element.search("h2").text.strip.gsub("BuY All Three!", "")
+#mtg_names = element.search("h3").text.strip
 
+#puts mtg_title
+#puts mtg_names
+
+#end
+
+#Questions for first 1:1:
+
+#---- once we figure that out---
+#3. Understanding my objects better and how they will communicate with my scraper class
+#4. How to continue refactoring the scraping so that I'm not loading the website over and over again.
+#5. Fix that "exit" bug in my controller (understand what's wrong with my control flow logic)
