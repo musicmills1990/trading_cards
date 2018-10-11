@@ -19,9 +19,11 @@ def editions_menu
     if input.to_i > 0
       @editions = Edition.edition_menu
       the_edition = @editions[input.to_i-1]
-      puts "#{the_edition.name}
-      #{the_edition.characters}
-       #{the_edition.description}"
+
+        puts "#{the_edition.name}
+        #{the_edition.characters}
+        #{the_edition.description}"
+
     elsif input == "list"
       list_editions
     elsif input == "exit"

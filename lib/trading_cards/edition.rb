@@ -23,8 +23,8 @@ class Edition
 
   def self.edition_menu
     editions = []
-    editions << self.scrape_mtg
-    editions << self.scrape_craic
+     editions << self.scrape_mtg
+     editions << self.scrape_craic
 #    editions << self.scrape_chaste
 #    editions << self.scrape_plunder
 #    editions << self.scrape_lady_v
@@ -36,13 +36,12 @@ class Edition
       mtg_doc = Nokogiri::HTML(open("https://musicthegathering.com/music-the-gathering-cards"))
 
       edition = self.new
-        mtg_doc.search("div.sqs-block.html-block.sqs-block-html").each do |element|
-          edition.name = element.search("h2").text.strip.gsub("BuY All Three!", "")
-          edition.characters = element.search("h3").text.strip
-          edition.description = element.css("div.sqs-block-content p").text.strip
-        end
+
+        edition.name = mtg_doc.search("div.sqs-block.html-block.sqs-block-html h2").text.gsub("BuY All Three!", "").strip
+        edition.characters = mtg_doc.search("div.sqs-block.html-block.sqs-block-html h3").text.strip
+        edition.description = mtg_doc.search("div.sqs-block.html-block.sqs-block-html p").text.strip
+
       edition
-      binding.pry
     end
 
 
@@ -50,11 +49,10 @@ class Edition
       craic_doc = Nokogiri::HTML(open("https://musicthegathering.com/the-craic-edition-cards"))
 
       edition = self.new
-        craic_doc.search("div.sqs-block.html-block.sqs-block-html").each do |element|
-          edition.name = element.search("h2").text.strip.gsub("Buy All Four!", "")
-          edition.characters = element.search("h3").text.strip
-          edition.description = element.search("div.sqs-block-content p").text.strip
-        end
+        edition.name = craic_doc.search("div.sqs-block.html-block.sqs-block-html h2").text.strip.gsub("Buy All Four!", "")
+        edition.characters = craic_doc.search("div.sqs-block.html-block.sqs-block-html h3").text.strip
+        edition.description = craic_doc.search("div.sqs-block.html-block.sqs-block-html.sqs-block-content p").text.strip
+
       edition
     end
 
