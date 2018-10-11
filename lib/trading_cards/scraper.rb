@@ -17,23 +17,24 @@ attr_accessor :edition, :doc
       @edition
     end
 
-    def scrape_editions
+    def self.scrape_editions
       @doc = Nokogiri::HTML(open("https://musicthegathering.com"))
-      mtg = @doc.search("div#block-yui_3_17_2_1_1534896694126_49243.sqs-block.html-block.sqs-block-html").text.strip
-      craic = @doc.search("div#block-yui_3_17_2_1_1534896694126_56732.sqs-block.html-block.sqs-block-html").text.strip
-      chaste = @doc.search("div#block-yui_3_17_2_1_1534896694126_62410.sqs-block.html-block.sqs-block-html").text.strip.gsub("NEW! ", "")
-      plunder = @doc.search("div#block-yui_3_17_2_1_1534943478376_19237.sqs-block.html-block.sqs-block-html").text.strip.gsub("NEW! ", "")
-      lady_v = @doc.search("div#block-yui_3_17_2_1_1534943478376_60459.sqs-block.html-block.sqs-block-html").text.strip.gsub("NEW! ", "")
-      editions = [mtg, craic, chaste, plunder, lady_v]
-      editions.each_with_index do |edition, i|
-        puts "#{i + 1}. #{edition}"
+      edition_ids = {
+        mtg: "1534896694126_49243",
+        craic: "1534896694126_56732",
+        chaste: "1534896694126_62410",
+        plunder: "1534943478376_19237",
+        lady_v: "1534943478376_60459"
+      }
+      index_number = 1
+      edition_ids.collect do |key, value|
+        edition = @doc.search("div#block-yui_3_17_2_1_#{value}.sqs-block.html-block.sqs-block-html").text.strip.gsub("NEW! ", "")
+        puts "#{index_number}. #{edition}"
+        index_number += 1
       end
     end
   end
-    @doc = Nokogiri::HTML(open("https://musicthegathering.com"))
-    editions = @doc.search("div.sqs-block.html-block.sqs-block-html").collect do |title_element|
-      title_element.css("div.sqs-block-content h1")
-    end
+
 
       #if I iterate across the above "editions" local variable, maybe, just maybe, I can assign instantiations of the Editions class to those iterations.
       #and then use that to communicate with my controller class. More tomorrow .
@@ -46,19 +47,39 @@ attr_accessor :edition, :doc
     #2a. so the scraper isn't talking directly to the controller, which feels like a bad idea
 
   class CharacterScraper
+#here is what I am thinking. If I save a hash of my URLs that open different pages, ahh but you should check if each one has
+#the same info to srape out the character names and the description (you don't need the title so ditch that).
+character_url = [
+  "music-the-gathering-cards",
+  "the-craic-edition-cards",
+  "chaste-treasure-edition-cards",
+  "the-plunder-doggs-edition-cards",
+  "the-lady-victoria-card"
+ ]
 
-    def mtg_scraper
-      mtg_doc = Nokogiri::HTML(open("https://musicthegathering.com/music-the-gathering-cards"))
-      mtg_doc.search("div.sqs-block.html-block.sqs-block-html").each do |element|
-      mtg_title = element.search("h2").text.strip.gsub("BuY All Three!", "")
-      mtg_names = element.css("div.sqs-block-content").text.split(" ")
-      puts mtg_title
-      puts mtg_names.is_a?(Array)
+    def character_scraper
+      character_url = [
+        "music-the-gathering-cards",
+        "the-craic-edition-cards",
+        "chaste-treasure-edition-cards",
+        "the-plunder-doggs-edition-cards",
+        "the-lady-victoria-card"
+       ]
+      character_doc = Nokogiri::HTML(open("https://musicthegathering.com/#{character_url[1]}"))
+      character_doc.search("div.sqs-block.html-block.sqs-block-html").each do |element|
+        edition_title = element.search("h2").text.strip.gsub("BuY All Three!", "")
+        character_names = element.css("div.sqs-block-content").text.split(" ")
+        character_description = element.css("p").text.strip
+        puts edition_title
+        puts character_names
+        puts character_description
     end
   end
 
-
-
+#take a look at advanced class methods lab -2:50pm 10/11
+#okay I am officially simplifying my project. Only one level deep, it's going to be here's a list of the editions, type one of them to get
+#info on the editions, then from there it'll go to an "edition description" which will have all of the information for that band, from
+#list of characters and their description below that.
     # def toplevel_scraper
       # doc = Nokogiri...
       # list_doc = doc.css("card-selector")
