@@ -8,8 +8,8 @@ scrape data. But currently I'm getting all of the information I need in all 5 ed
 I need to at least separate out the characters and descriptions with commas or something. How do I manipulate a scraped piece of data?
 3. I'm trying to run 5 different slugs at the same time essentially in order to populate my editions variable from the same website, which
 is causing a HTTP error 429: too many requests. I need a workaround for this, because I need to use those slugs to get the data I'm working
-with....'
-4. You are going to want to redo the editions_list so that it reads out the @name variable from each part of the array
+with....
+#DONE# 4. You are going to want to redo the editions_list so that it reads out the @name variable from each part of the array'
 
   #=> I might need an EditionScraper class
   #=> Maybe I need that class needs to instantiate the edition based on the number from the list?
@@ -286,3 +286,22 @@ end
  "
  1. Lady Victoria:
  The Lady Victoria: Her extensive musical knowledge and one-of-a-kind energy will add power and stamina to your collection!"
+
+
+##an old method I don't need anymore!
+def self.scrape_editions_list
+  @doc = Nokogiri::HTML(open("https://musicthegathering.com"))
+  edition_ids = {
+    mtg: "1534896694126_49243",
+    craic: "1534896694126_56732",
+    chaste: "1534896694126_62410",
+    plunder: "1534943478376_19237",
+    lady_v: "1534943478376_60459"
+  }
+  index_number = 1
+  edition_ids.collect do |key, value|
+    edition = @doc.search("div#block-yui_3_17_2_1_#{value}.sqs-block.html-block.sqs-block-html").text.strip.gsub("NEW! ", "")
+    puts "#{index_number}. #{edition}"
+      index_number += 1
+  end
+end
