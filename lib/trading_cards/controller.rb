@@ -9,7 +9,6 @@ end
 
 def list_editions
   puts "Hello and welcome to the card shop!"
-  puts "Loading Editions now..."
 #  Edition.scrape_editions_list
   editions_list = Edition.editions
   editions_list.each_with_index do |names, i|

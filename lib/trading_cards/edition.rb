@@ -4,23 +4,25 @@ class Edition
   attr_accessor :name, :characters, :description
     @@editions = []
 
-  def initialize
-    @@editions << self
-  end
+#  def initialize
+#    @@editions << self
+#  end
 
   def self.editions
     @@editions
   end
 
   def self.scrape_details
-    puts "Loading info now..."
-    @@editions
+    puts "Loading info now (this will take a minute)..."
      @@editions << self.scrape_mtg
+     sleep 15
      @@editions << self.scrape_craic
+     sleep 15
      @@editions << self.scrape_chaste
+     sleep 15
      @@editions << self.scrape_plunder
+     sleep 15
      @@editions << self.scrape_lady_v
-    @@editions
     end
 
 
