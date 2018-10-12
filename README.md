@@ -1,7 +1,6 @@
 # TradingCards
 
-My project is called The Trading Card Shop, where I am pulling information off of my music act's merchandise website.
-The shop has many trading card "editions", each edition has 1 to 4 character cards, and each character card has a description.
+Welcome to the Trading Card Shop! Each card belongs to a band of musicians, known as an "Edition". Upon running the program, you will see a list of Editions. To learn more about each Edition, type the number of the Edition in the main menu. This will give you the characters and descriptions of that edition.
 
 ## Installation
 

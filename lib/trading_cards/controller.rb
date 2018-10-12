@@ -17,12 +17,12 @@ def editions_menu
     puts "Please type the number of the edition you would like to see, or type 'list' to see the editions again."
     input = gets.strip.downcase
     if input.to_i > 0
-      @editions = Edition.edition_menu
-      the_edition = @editions[input.to_i-1]
+      editions = Edition.scrape_details
+      the_edition = editions[input.to_i-1]
 
         puts "#{the_edition.name}"
-        puts "#{the_edition.characters}"
-        puts "#{the_edition.description}"
+        puts "Characters: #{the_edition.characters}"
+        puts "Stats & Quotes #{the_edition.description}"
 
     elsif input == "list"
       list_editions

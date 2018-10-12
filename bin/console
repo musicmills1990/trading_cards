@@ -10,5 +10,9 @@ require "trading_cards"
 # require "pry"
 # Pry.start
 
+def reload!
+  load './lib/trading_cards/edition.rb'
+end
+
 require "irb"
 IRB.start
