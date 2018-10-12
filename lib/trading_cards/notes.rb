@@ -1,3 +1,15 @@
+Update: friday, 10/12 at 12pm
+
+
+BIG QUESTIONS:
+1. I'm not sure why I can't get the objects to save the properties of the edition if I iterate over a more general piece of
+scrape data. But currently I'm getting all of the information I need in all 5 editions.
+#DONE# 2. Ideally ideally I would like to have each character displayed on a numbered list and have the description/quote underneath their name.
+I need to at least separate out the characters and descriptions with commas or something. How do I manipulate a scraped piece of data?
+3. I'm trying to run 5 different slugs at the same time essentially in order to populate my editions variable from the same website, which
+is causing a HTTP error 429: too many requests. I need a workaround for this, because I need to use those slugs to get the data I'm working
+with....'
+4. You are going to want to redo the editions_list so that it reads out the @name variable from each part of the array
 
   #=> I might need an EditionScraper class
   #=> Maybe I need that class needs to instantiate the edition based on the number from the list?
