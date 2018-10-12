@@ -1,6 +1,7 @@
 class Controller
 
 def call
+  Edition.scrape_details
   list_editions
   editions_menu
   goodbye
@@ -10,7 +11,7 @@ def list_editions
   puts "Hello and welcome to the card shop!"
   puts "Loading Editions now..."
 #  Edition.scrape_editions_list
-  editions_list = Edition.scrape_details
+  editions_list = Edition.editions
   editions_list.each_with_index do |names, i|
     puts "#{i + 1}. #{names.name}"
   end
@@ -22,7 +23,7 @@ def editions_menu
     puts "Please type the number of the edition you would like to see, or type 'list' to see the editions again."
     input = gets.strip.downcase
     if input.to_i > 0
-      editions = Edition.self.editions
+      editions = Edition.editions
       the_edition = editions[input.to_i-1]
 
         puts "#{the_edition.name}"

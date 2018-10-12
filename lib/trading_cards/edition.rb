@@ -2,23 +2,23 @@ class Edition
 #what does an edition have?
 #=> an edition has many characters (a list of characters)
   attr_accessor :name, :characters, :description
-  @@editions = []
+    @@editions = []
+
+  def initialize
+    @@editions << self
+  end
 
   def self.editions
-  @@editions
+    @@editions
   end
 
   def self.scrape_details
+    puts "Loading info now..."
     @@editions
-    sleep 1
      @@editions << self.scrape_mtg
-    sleep 1
      @@editions << self.scrape_craic
-     sleep 1
      @@editions << self.scrape_chaste
-     sleep 1
      @@editions << self.scrape_plunder
-     sleep 1
      @@editions << self.scrape_lady_v
     @@editions
     end
