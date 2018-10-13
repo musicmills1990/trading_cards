@@ -23,7 +23,7 @@ class Edition
 
 
     def self.scrape_mtg
-      mtg_doc = Nokogiri::HTML(open("https://musicthegathering.com/music-the-gathering-cards"))
+      mtg_doc = Nokogiri::HTML(open("https://musicthegathering.com"))
 
         edition = self.new
         edition.name = mtg_doc.search("div.sqs-block.html-block.sqs-block-html h2").text.gsub("BuY All Three!", "").strip
@@ -35,7 +35,7 @@ class Edition
 
 
     def self.scrape_craic
-      craic_doc = Nokogiri::HTML(open("https://musicthegathering.com/the-craic-edition-cards"))
+      craic_doc = Nokogiri::HTML(open("https://musicthegathering.com"))
 
       edition = self.new
         edition.name = craic_doc.search("div.sqs-block.html-block.sqs-block-html h2").text.strip.gsub("Buy All Four!", "")
@@ -46,7 +46,7 @@ class Edition
     end
 
     def self.scrape_chaste
-      chaste_doc = Nokogiri::HTML(open("https://musicthegathering.com/chaste-treasure-edition-cards"))
+      chaste_doc = Nokogiri::HTML(open("https://musicthegathering.com"))
 
       edition = self.new
         edition.name = chaste_doc.search("div.col.sqs-col-12.span-12 h2").text.strip
@@ -57,7 +57,7 @@ class Edition
     end
 
     def self.scrape_plunder
-      plunder_doc = Nokogiri::HTML(open("https://musicthegathering.com/the-plunder-doggs-edition-cards"))
+      plunder_doc = Nokogiri::HTML(open("https://musicthegathering.com"))
 
       edition = self.new
         edition.name = plunder_doc.search("div.sqs-block-content h2").text.strip
@@ -68,7 +68,7 @@ class Edition
     end
 
     def self.scrape_lady_v
-      lady_doc = Nokogiri::HTML(open("https://musicthegathering.com/the-lady-victoria-card"))
+      lady_doc = Nokogiri::HTML(open("https://musicthegathering.com"))
 
       edition = self.new
         edition.name = lady_doc.search("div.sqs-block-content h1").first.text.strip.gsub("It's time to \"Get Hammered!\" with the new ", "")
