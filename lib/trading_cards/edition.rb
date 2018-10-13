@@ -15,13 +15,9 @@ class Edition
   def self.scrape_details
     puts "Loading info now (this will take a minute)..."
      @@editions << self.scrape_mtg
-     sleep 15
      @@editions << self.scrape_craic
-     sleep 15
      @@editions << self.scrape_chaste
-     sleep 15
      @@editions << self.scrape_plunder
-     sleep 15
      @@editions << self.scrape_lady_v
     end
 
