@@ -21,7 +21,7 @@ def editions_menu
   while input != 'exit'
     puts "Please type the number of the edition you would like to see, or type 'list' to see the editions again."
     input = gets.strip.downcase
-    if input.to_i > 0
+    if input.to_i > 0 && input.to_i < 6
       editions = Edition.editions
       the_edition = editions[input.to_i-1]
 
