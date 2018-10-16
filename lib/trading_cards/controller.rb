@@ -27,7 +27,7 @@ def editions_menu
 
         puts "#{the_edition.name}"
         puts "Characters: #{the_edition.characters}"
-        puts "Stats & Quotes #{the_edition.description}"
+        puts "Stats & Quotes: #{the_edition.description}"
 
     elsif input == "list"
       list_editions

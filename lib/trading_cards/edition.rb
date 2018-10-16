@@ -31,8 +31,8 @@ class Edition
       Edition.new.tap do |e|
         Edition.doc.search("#music-the-gathering-cards-page").collect do |a|
           e.name = a.search("div#block-f11ba348dcafc96ca707.sqs-block.html-block.sqs-block-html h2").text
-          e.characters = a.css("div.col.sqs-col-4.span-4 h3").to_a.join(", ")
-          e.description = a.search("div.col.sqs-col-4.span-4 p").to_a.join(" ").strip
+          e.characters = a.search("div.col.sqs-col-4.span-4 h3").to_a.join(", ")
+          e.description = a.search("div.col.sqs-col-4.span-4 p").to_a.join(" ")
         end
       end
     end
