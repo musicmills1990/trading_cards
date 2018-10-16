@@ -42,7 +42,7 @@ class Edition
       Edition.new.tap do |e|
         Edition.doc.css("#the-craic-edition-cards-page").collect do |a|
           e.name = a.search("h2").text.strip.gsub("Buy All Four!", "")
-          e.characters = a.search("div.col.sqs-col-4.span-4 h3").to_a.join(", ")
+          e.characters = a.search("div.col.sqs-col-6.span-6 h3").to_a.join(", ")
           e.description = a.search("div.col.sqs-col-6.span-6 p").to_a.join(" ")
         end
       end
@@ -77,15 +77,4 @@ class Edition
         end
       end
     end
-
-
-    #I guess my biggest problem in figuring out what I'm changing it to now versus what I had before is that I
-    #still dont' get how to save JUST 5 edition objects with all of the info lined up properly other than looking through the arrays
-    #and pulling out the indexes. My scraping selectors can't get so specific that I have just the 5 names, 5 character lists, and
-    #5 character stats without having specificity differences.
-
-  #so I want 5 objects to go in, but I only want to use my open-uri so operate once
-  #running into a zipper problem potentially
-  #edition.characters = mtg_doc.search("div.sqs-block.html-block.sqs-block-html h3").to_a.join(", ").strip
-  #edition.description = mtg_doc.search("div.col.sqs-col-4.span-4 p").to_a.join(" ").strip
 end

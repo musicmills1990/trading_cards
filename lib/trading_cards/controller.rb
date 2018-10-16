@@ -27,7 +27,9 @@ def editions_menu
 
         puts "#{the_edition.name}"
         puts "Characters: #{the_edition.characters}"
-        puts "Stats & Quotes: #{the_edition.description}"
+        puts <<~HEREDOC
+        Stats & Quotes: #{the_edition.description}
+         HEREDOC
 
     elsif input == "list"
       list_editions
